@@ -1,0 +1,23 @@
+language: generic
+sudo: require
+services:
+  - docker
+
+before_install:
+  - docker build -t mathiase/multi-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true mathiase/multi-docker npm run test
+
+after_success:
+  - docker build -t mathiase/multi-client ./client
+  - docker build -t mathiase/multi-server ./server
+  - docker build -t mathiase/multi-worker ./worker
+  - docker build -t mathiase/multi-nginx ./nginx      
+  # Log in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push images to docker hub
+  - docker push mathiase/multi-client
+  - docker push mathiase/multi-server
+  - docker push mathiase/multi-worker
+  - docker push mathiase/multi-nginx
