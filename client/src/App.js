@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import OtherPage from './OtherPage';
 import Fib from './Fib';
 
-class App extends Component {
-//function App() {
-  render() {
+//class App extends Component {
+function App() {
+  //render() {
     return (
       <Router>
         <div className="App">
@@ -32,7 +32,7 @@ class App extends Component {
         </div>
       </Router>
     );
-  }
+  //}
 }
 
 export default App;
